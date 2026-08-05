@@ -272,7 +272,7 @@ export function DataTableFilterList<TData>({
     if (name === "p") {
       const filterToday: ExtendedColumnFilter<TData>[] = [
         {
-          id: "lastReturnDate" as Extract<keyof TData, string>,
+          id: "lastVisitDate" as Extract<keyof TData, string>,
           value: [
             String(firstDayOfMonth.getTime()),
             String(lastDayOfMonth.getTime()),

@@ -78,6 +78,145 @@ function App() {
   }
   const { password, visits, surgeries } = data
 
+  if (import.meta.env.VITE_ISTESTING === "true")
+    return (
+      <section className="flex flex-col min-h-screen loading-page">
+        <m.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col justify-st items-center gap-4"
+        >
+          <m.h1 variants={item} className="scale-140">
+            Welcome To Surgical Clinic App
+          </m.h1>
+
+          <m.h2 variants={item}>How Are You Today , Dear Surgeon ?</m.h2>
+
+          <m.h3 variants={item}></m.h3>
+
+          <m.mark variants={item}>"do no harm"</m.mark>
+
+          <m.div
+            initial={{ opacity: 0 }}
+            transition={{ duration: 1, delay: 2 }}
+            animate={{ opacity: 1 }}
+          >
+            {!isLoggedIn ? (
+              <div className="mt-[40vh] flex gap-2 w-full justify-center items-center">
+                <Label className="whitespace-nowrap" htmlFor="input">
+                  Enter Password :
+                </Label>
+                <Input
+                  id="input"
+                  value={passwordValue}
+                  type="password"
+                  autoCapitalize="off"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  onChange={(e) =>
+                    setPasswordValue(e.currentTarget.value.trim())
+                  }
+                />
+                <Button
+                  onClick={() => {
+                    if (passwordValue === password) {
+                      setIsLoggedIn(true)
+                      toast.success("Logged In Successfully !!")
+                      setPasswordValue("")
+                    } else if (!passwordValue)
+                      toast.error("Please Enter the Password")
+                    else toast.error("Wrong Password")
+                  }}
+                >
+                  Log In
+                </Button>
+              </div>
+            ) : (
+              <div className="mt-[20vh] flex flex-col gap-5 ">
+                <div className=" flex flex-col gap-2 w-full justify-center items-center">
+                  <h3>Visits</h3>
+                  {visits.length === 0 ? (
+                    <Item variant={"muted"}>
+                      <ItemContent>
+                        <ItemTitle>No Visits Today</ItemTitle>
+                      </ItemContent>
+                      <ItemActions></ItemActions>
+                    </Item>
+                  ) : (
+                    <div className="grid grid-cols-3 gap-5">
+                      {/* <div className="flex justify-center items-center flex-wrap max-w-25 gap-5"> */}
+                      {visits.map(({ name, id }) => (
+                        <Item variant={"muted"} key={id}>
+                          <ItemContent>
+                            <ItemTitle>{name}</ItemTitle>
+                          </ItemContent>
+                          <ItemActions>
+                            <Button variant="secondary">
+                              <Link
+                                to="/patients/$id"
+                                params={{ id: String(id) }}
+                              >
+                                Go
+                              </Link>
+                            </Button>
+                          </ItemActions>
+                        </Item>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className=" flex flex-col gap-2 w-full justify-center items-center">
+                  <h3>Surgeries</h3>
+                  {surgeries.length === 0 ? (
+                    <Item variant={"muted"}>
+                      <ItemContent>
+                        <ItemTitle>No Surgeries Today</ItemTitle>
+                      </ItemContent>
+                      <ItemActions></ItemActions>
+                    </Item>
+                  ) : (
+                    <div className="grid grid-cols-3 gap-5">
+                      {/* <div className="flex justify-center items-center flex-wrap max-w-25 gap-5"> */}
+                      {surgeries.map(({ name, patientId, surgeryId }) => (
+                        <Item variant={"muted"} key={patientId}>
+                          <ItemContent>
+                            <Link
+                              to="/patients/$id"
+                              params={{ id: String(patientId) }}
+                            >
+                              <ItemTitle>{name}</ItemTitle>
+                            </Link>
+                          </ItemContent>
+                          <ItemActions>
+                            <Button variant="secondary">
+                              <Link
+                                to="/patients/$id/surgeries/$surgeryId"
+                                params={{
+                                  id: String(patientId),
+                                  surgeryId: String(surgeryId),
+                                }}
+                              >
+                                Go To Surgery
+                              </Link>
+                            </Button>
+                          </ItemActions>
+                        </Item>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <Refresh queryKeys={["password"] as InvalidateQueryFilters} />
+              </div>
+            )}
+          </m.div>
+          <m.p variants={item}></m.p>
+        </m.div>
+      </section>
+    )
+
   return (
     <section className="flex flex-col min-h-screen loading-page">
       <m.div

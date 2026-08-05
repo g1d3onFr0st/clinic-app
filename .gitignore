@@ -3,11 +3,6 @@ dist
 .env
 .nitro
 .tanstack
-.wrangler
 .output
-# test files
-test
-test.*
-*.test.*
-test/*
-.envrc
+
+tests/

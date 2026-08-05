@@ -191,7 +191,6 @@ export const deleteVisitServerFn = createServerFn({
     await db.delete(visits).where(eq(visits.visitId, Number(visitId)))
   })
 
-// wqeffffffffffffffffffffffffffffffffffffffff
 export const getPatientSurgeryInfoServerFn = createServerFn({
   method: "GET",
 })
@@ -795,4 +794,16 @@ export const financeServerFn = createServerFn({
     dashboard,
     records,
   }
+})
+
+export const getHeaderPatients = createServerFn({
+  method: "GET",
+}).handler(async () => {
+  const allPatients = await db
+    .select({
+      id: patients.id,
+      name: patients.name,
+    })
+    .from(patients)
+  return allPatients
 })
