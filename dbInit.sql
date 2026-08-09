@@ -1,6 +1,7 @@
 CREATE TYPE "public"."gender_type" AS ENUM('male', 'female');
 CREATE TYPE "public"."location_type" AS ENUM('hospital', 'clinic');
 CREATE TYPE "public"."theme_type" AS ENUM('light', 'dark');
+
 CREATE TABLE "config" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"theme" "theme_type" NOT NULL,
@@ -46,6 +47,7 @@ CREATE TABLE "visits" (
 
 ALTER TABLE "surgeries" ADD CONSTRAINT "surgeries_patient_id_fkey" FOREIGN KEY ("patient_id") REFERENCES "public"."patients"("id") ON DELETE cascade ON UPDATE no action;
 ALTER TABLE "visits" ADD CONSTRAINT "visits_patient_id_fkey" FOREIGN KEY ("patient_id") REFERENCES "public"."patients"("id") ON DELETE cascade ON UPDATE no action;
+
 CREATE INDEX "idx_surgery_id" ON "surgeries" USING btree ("surgery_id" int4_ops);
 CREATE INDEX "idx_visits_patient_id" ON "visits" USING btree ("patient_id" int4_ops);
 

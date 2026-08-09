@@ -44,6 +44,7 @@ import { Refresh } from "../custom/Refresh"
 export default function Header() {
   const { isLoggedIn, setIsLoggedIn } = useAppContext()
   const router = useRouter()
+  // const location = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const [open, setOpen] = useState(false)
   const { data, error } = useQuery({
@@ -56,14 +57,14 @@ export default function Header() {
   return (
     <header className="grid grid-cols-[1fr_2fr_1fr] grid-rows-1 h-20 w-screen fixed z-100 top-0  bg-primary text-background px-4 ">
       <div className="flex justify-start items-center gap-4">
-        <img src={clinicIcon} alt="" className="size-15 rounded-full" />
         <Link to="/" className="whitespace-nowrap">
-          <h3>
-            {import.meta.env.VITE_ISTESTING === "true"
-              ? "Surgical Clinic App"
-              : "Dr Samer Sabah Al-Obaidi Clinic App"}
-          </h3>
+          <img src={clinicIcon} alt="" className="size-15 rounded-full" />
         </Link>
+        <h3>
+          {import.meta.env.VITE_ISTESTING === "true"
+            ? "Surgical Clinic App"
+            : ""}
+        </h3>
       </div>
       {isLoggedIn ? (
         <nav className="flex justify-center items-center gap-4">

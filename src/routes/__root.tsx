@@ -1,5 +1,3 @@
-// import { scan } from "react-scan"
-// import { useEffect } from "react"
 import {
   HeadContent,
   Outlet as App,
@@ -13,6 +11,8 @@ import { TSSDevTools } from "#/integrations/TSSDevTools"
 import { NotFoundPage } from "#/pages/NotFoundPage"
 import { fetchContextServerFn } from "#/lib/serverFns"
 import { ErrorComp, LoadingComp } from "#/components/custom/status"
+import { useEffect, useState } from "react"
+import { motion as m } from "framer-motion"
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -72,6 +72,10 @@ function RootDocument() {
     queryKey: ["context"],
     queryFn: fetchContextServerFn,
   })
+  const [isOpen, setIsOpen] = useState(true)
+  useEffect(() => {
+    setTimeout(() => setIsOpen(false), 2000)
+  })
   if (isLoading || isPending) return <LoadingComp title="Loading Theme ..." />
   if (isError || !theme)
     return (
@@ -95,9 +99,27 @@ function RootDocument() {
         cz-shortcut-listen="true"
         className="overflow-x-hidden transition-colors duration-300 bg-background text-foreground dark"
       >
-        <AppWrappers queryClient={queryClient} theme={theme}>
-          <App />
-        </AppWrappers>
+        {isOpen ? (
+          <div className="w-screen h-screen flex justify-center items-center">
+            <m.h1
+              className="text-7xl!"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0] }}
+              transition={{
+                duration: 1.5,
+                times: [0, 0.4, 0.8, 1],
+                ease: "linear",
+              }}
+            >
+              How Are You Today Doctor{" "}
+              {import.meta.env.VITE_ISTESTING === "true" ? "" : "Samer"} ?
+            </m.h1>
+          </div>
+        ) : (
+          <AppWrappers queryClient={queryClient} theme={theme}>
+            <App />
+          </AppWrappers>
+        )}
         <TSSDevTools />
         <Scripts />
       </body>
