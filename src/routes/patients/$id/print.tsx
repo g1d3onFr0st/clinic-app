@@ -19,7 +19,7 @@ export const Route = createFileRoute("/patients/$id/print")({
 
 function RouteComponent() {
   const [meds, setMeds] = useState("")
-  const [inst, setInst] = useState("")
+  const [insts, setInst] = useState("")
   const contentRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
     contentRef: contentRef,
@@ -52,7 +52,7 @@ function RouteComponent() {
         <Label>Enter Medications : </Label>
         <Textarea value={meds} onChange={(e) => setMeds(e.target.value)} />
         <Label>Enter Instructions : </Label>
-        <Textarea value={inst} onChange={(e) => setInst(e.target.value)} />
+        <Textarea value={insts} onChange={(e) => setInst(e.target.value)} />
         <Button
           onClick={() => {
             contentRef.current?.classList.remove("hidden")
@@ -97,7 +97,7 @@ function RouteComponent() {
 
             <div className="flex pt-40 flex-col items-center justify-center">
               <h3>جراح إختصاص</h3>
-              <h3>زميل في الكلية الأمريكية للجراحين</h3>
+              <h3>زميل كلية الجراحين الأمريكية</h3>
               <h3>شهادة البورد العربي (دكتوراه)</h3>
               <h3>في الجراحة العامة والجراحة المنظارية</h3>
               <h4>M.B.Ch.B, CABS, FACS</h4>
@@ -125,9 +125,12 @@ function RouteComponent() {
             <div dir="ltr" className="flex flex-col  w-full">
               <h3 className="pb-5">Rx: </h3>
               <div>
-                {meds.split("\n").map((med, i) => (
-                  <h4 key={i}>{med}</h4>
-                ))}
+                {meds
+                  .split("\n")
+                  .filter((med) => med !== "")
+                  .map((med, i) => (
+                    <h4 key={i}>{med}</h4>
+                  ))}
               </div>
             </div>
 
@@ -137,9 +140,12 @@ function RouteComponent() {
             >
               <h3 className="pb-5">التوصيات: </h3>
               <div>
-                {inst.split("\n").map((med, i) => (
-                  <h4 key={i}>{med}</h4>
-                ))}
+                {insts
+                  .split("\n")
+                  .filter((inst) => inst !== "")
+                  .map((inst, i) => (
+                    <h4 key={i}>{inst}</h4>
+                  ))}
               </div>
             </div>
           </div>
@@ -163,7 +169,7 @@ function RouteComponent() {
                 <Phone size={30} />
               </div>
             </div>
-            <h3>بغداد ، حي الجامعة ، مجمع تاج الماسة الطبي</h3>
+            <h3>بغداد ، حي الجامعة ، مجمع تاج الماس الطبي</h3>
           </div>
         </div>
       </div>
