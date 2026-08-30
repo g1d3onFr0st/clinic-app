@@ -163,18 +163,16 @@ function RouteComponent() {
               <FieldSet className="w-lg">
                 <FieldLegend>Add Patient Form</FieldLegend>
 
-                <FieldDescription className="space-y-5">
-                  <div>
-                    <p>
-                      In this form, you can view this patients information to add
-                      a patient into the system.
-                    </p>
-                    <p>
-                      <span className="font-extrabold">Note</span>: Only the name,
-                      First-Time Location, and gender are required. The rest is
-                      optional.
-                    </p>
-                  </div>
+                <FieldDescription className="space-y-5 flex flex-col">
+                  <span>
+                    In this form, you can view this patient's information to add
+                    a patient into the system.
+                  </span>
+                  <span>
+                    <span className="font-extrabold">Note</span>: Only the name,
+                    First-Time Location, and gender are required. The rest is
+                    optional.
+                  </span>
                 </FieldDescription>
 
                 <FieldGroup>
@@ -329,6 +327,11 @@ function RouteComponent() {
                     <Button variant="secondary">
                       <Link to="/patients/$id/surgeries/add" params={{ id }}>
                         Add Surgery
+                      </Link>
+                    </Button>
+                    <Button variant="secondary">
+                      <Link to="/patients/$id/print" params={{ id }}>
+                        Print
                       </Link>
                     </Button>
                   </div>

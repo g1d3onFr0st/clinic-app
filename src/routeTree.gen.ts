@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PatientsIndexRouteImport } from './routes/patients/index'
 import { Route as PatientsAddRouteImport } from './routes/patients/add'
 import { Route as PatientsIdIndexRouteImport } from './routes/patients/$id/index'
+import { Route as PatientsIdPrintRouteImport } from './routes/patients/$id/print'
 import { Route as PatientsIdVisitsAddRouteImport } from './routes/patients/$id/visits/add'
 import { Route as PatientsIdVisitsVisitIdRouteImport } from './routes/patients/$id/visits/$visitId'
 import { Route as PatientsIdSurgeriesAddRouteImport } from './routes/patients/$id/surgeries/add'
@@ -56,6 +57,11 @@ const PatientsIdIndexRoute = PatientsIdIndexRouteImport.update({
   path: '/patients/$id/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatientsIdPrintRoute = PatientsIdPrintRouteImport.update({
+  id: '/patients/$id/print',
+  path: '/patients/$id/print',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PatientsIdVisitsAddRoute = PatientsIdVisitsAddRouteImport.update({
   id: '/patients/$id/visits/add',
   path: '/patients/$id/visits/add',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/visits': typeof VisitsRoute
   '/patients/add': typeof PatientsAddRoute
   '/patients/': typeof PatientsIndexRoute
+  '/patients/$id/print': typeof PatientsIdPrintRoute
   '/patients/$id/': typeof PatientsIdIndexRoute
   '/patients/$id/surgeries/$surgeryId': typeof PatientsIdSurgeriesSurgeryIdRoute
   '/patients/$id/surgeries/add': typeof PatientsIdSurgeriesAddRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/visits': typeof VisitsRoute
   '/patients/add': typeof PatientsAddRoute
   '/patients': typeof PatientsIndexRoute
+  '/patients/$id/print': typeof PatientsIdPrintRoute
   '/patients/$id': typeof PatientsIdIndexRoute
   '/patients/$id/surgeries/$surgeryId': typeof PatientsIdSurgeriesSurgeryIdRoute
   '/patients/$id/surgeries/add': typeof PatientsIdSurgeriesAddRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/visits': typeof VisitsRoute
   '/patients/add': typeof PatientsAddRoute
   '/patients/': typeof PatientsIndexRoute
+  '/patients/$id/print': typeof PatientsIdPrintRoute
   '/patients/$id/': typeof PatientsIdIndexRoute
   '/patients/$id/surgeries/$surgeryId': typeof PatientsIdSurgeriesSurgeryIdRoute
   '/patients/$id/surgeries/add': typeof PatientsIdSurgeriesAddRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/visits'
     | '/patients/add'
     | '/patients/'
+    | '/patients/$id/print'
     | '/patients/$id/'
     | '/patients/$id/surgeries/$surgeryId'
     | '/patients/$id/surgeries/add'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/visits'
     | '/patients/add'
     | '/patients'
+    | '/patients/$id/print'
     | '/patients/$id'
     | '/patients/$id/surgeries/$surgeryId'
     | '/patients/$id/surgeries/add'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/visits'
     | '/patients/add'
     | '/patients/'
+    | '/patients/$id/print'
     | '/patients/$id/'
     | '/patients/$id/surgeries/$surgeryId'
     | '/patients/$id/surgeries/add'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   VisitsRoute: typeof VisitsRoute
   PatientsAddRoute: typeof PatientsAddRoute
   PatientsIndexRoute: typeof PatientsIndexRoute
+  PatientsIdPrintRoute: typeof PatientsIdPrintRoute
   PatientsIdIndexRoute: typeof PatientsIdIndexRoute
   PatientsIdSurgeriesSurgeryIdRoute: typeof PatientsIdSurgeriesSurgeryIdRoute
   PatientsIdSurgeriesAddRoute: typeof PatientsIdSurgeriesAddRoute
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patients/$id/print': {
+      id: '/patients/$id/print'
+      path: '/patients/$id/print'
+      fullPath: '/patients/$id/print'
+      preLoaderRoute: typeof PatientsIdPrintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/patients/$id/visits/add': {
       id: '/patients/$id/visits/add'
       path: '/patients/$id/visits/add'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   VisitsRoute: VisitsRoute,
   PatientsAddRoute: PatientsAddRoute,
   PatientsIndexRoute: PatientsIndexRoute,
+  PatientsIdPrintRoute: PatientsIdPrintRoute,
   PatientsIdIndexRoute: PatientsIdIndexRoute,
   PatientsIdSurgeriesSurgeryIdRoute: PatientsIdSurgeriesSurgeryIdRoute,
   PatientsIdSurgeriesAddRoute: PatientsIdSurgeriesAddRoute,

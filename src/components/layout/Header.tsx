@@ -160,8 +160,9 @@ export default function Header() {
                   <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
                     <CommandGroup heading="patients">
-                      {data?.map((p) => (
+                      {data?.map((p, i) => (
                         <Link
+                          key={i}
                           onClick={() => setOpen(false)}
                           to="/patients/$id"
                           params={{ id: String(p.id) }}

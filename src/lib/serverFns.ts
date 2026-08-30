@@ -807,3 +807,21 @@ export const getHeaderPatients = createServerFn({
     .from(patients)
   return allPatients
 })
+
+export const fetchPatientPrintServerFn = createServerFn({
+  method: "GET",
+})
+  .inputValidator((data: { id: string }) => data)
+  .handler(async ({ data: { id } }) => {
+    const patient_id = Number(id)
+    const result = await db
+      .select({
+        name: patients.name,
+        dateOfBirth: patients.dateOfBirth,
+      })
+      .from(patients)
+      .where(eq(patients.id, patient_id))
+      .limit(1)
+    if (result.length === 0) return null
+    return result[0]
+  })
